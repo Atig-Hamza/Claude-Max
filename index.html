@@ -1480,7 +1480,7 @@ function openSettings() {
         <button class="settings-btn-save" onclick="saveSettings()">Save</button>
       </div>
       <div class="settings-danger">
-        <button class="settings-danger-btn" onclick="clearAllData()">Clear all chat history</button>
+        <button class="settings-danger-btn" onclick="clearAllData()">Reset all & start from 0</button>
       </div>
     </div>
   `;
@@ -1512,12 +1512,9 @@ function saveSettings() {
 }
 
 function clearAllData() {
-  if (confirm('Clear all chat history? This cannot be undone.')) {
-    localStorage.removeItem(STORAGE_KEY);
-    newChat();
-    renderHistory();
-    closeSettings();
-    toast('History cleared');
+  if (confirm('Clear all chat history and profile data? This will reset your account from zero.')) {
+    localStorage.clear(); // Complete clear since they want to start from 0
+    window.location.reload(); // Hard reload to trigger onboarding flow again
   }
 }
 
