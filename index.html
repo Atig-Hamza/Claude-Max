@@ -1709,8 +1709,8 @@ Formatting guidelines:
 
     messages.push({ role: 'assistant', content: full });
 
-    if (messages.length <= 2) generateTitle(text, full);
-    else { const hist = getHistory(); const existing = hist.find(c => c.id === activeChatId); saveCurrentChat(existing ? existing.title : text.slice(0, 46)); }
+    if (messages.length === 4) generateTitle(text, full);
+    else { const hist = getHistory(); const existing = hist.find(c => c.id === activeChatId); saveCurrentChat(existing ? existing.title : messages[0].content.slice(0, 46)); }
 
   } catch(err) {
     el.classList.remove('streaming-cursor');
@@ -1725,14 +1725,18 @@ Formatting guidelines:
 // ══ AI TITLE ══
 async function generateTitle(userMsg, aiResponse) {
   try {
+    const contextMsg = messages.length >= 2 ? messages[0].content : userMsg;
     const titlePrompt = [
       { role: 'system', content: 'Generate a very short title (3-6 words max) for this conversation. Return ONLY the title text, nothing else. No quotes, no punctuation at the end.' },
-      { role: 'user', content: `User asked: "${userMsg.slice(0, 200)}"\n\nAI responded with: "${aiResponse.slice(0, 300)}"` }
+      { role: 'user', content: `Main topic: "${contextMsg.slice(0, 200)}"\n\nLatest response: "${aiResponse.slice(0, 300)}"` }
     ];
     const res = await puter.ai.chat(titlePrompt, { model: 'claude-haiku-4-5-20251001' });
     const title = (res?.message?.content || res?.text || userMsg.slice(0, 46)).trim().replace(/^["']|["']$/g, '');
     saveCurrentChat(title);
-  } catch { saveCurrentChat(userMsg.slice(0, 46) + (userMsg.length > 46 ? '…' : '')); }
+  } catch { 
+    const fallback = messages.length > 0 ? messages[0].content : userMsg;
+    saveCurrentChat(fallback.slice(0, 46) + (fallback.length > 46 ? '…' : '')); 
+  }
 }
 
 // ══ MARKDOWN RENDERER ══
