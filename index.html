@@ -925,32 +925,32 @@
   }
 
   @media (max-width: 760px) {
+    .app { position: relative; }
     .sidebar {
-      position: fixed;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      width: min(82vw, 300px);
-      transform: translateX(calc(-100% + 46px));
-      transition: transform 0.25s cubic-bezier(0.4,0,0.2,1);
-      box-shadow: 10px 0 30px rgba(0,0,0,0.35);
-      z-index: 45;
-      border-right: 1px solid var(--border2);
+      position: absolute;
+      top: 0; bottom: 0; left: 0;
+      width: 52px;
+      z-index: 100;
+      background: var(--bg2);
+      transform: translateX(0);
+      transition: width 0.25s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: none;
+      border-right: 1px solid var(--border);
       padding-top: calc(10px + env(safe-area-inset-top));
       padding-bottom: calc(8px + env(safe-area-inset-bottom));
     }
     .sidebar.expanded {
       width: min(82vw, 300px);
-      transform: translateX(0);
+      box-shadow: 4px 0 30px rgba(0,0,0,0.4);
     }
-    .main { margin-left: 46px; }
+    .main { margin-left: 52px; }
     .top-right { right: 10px; }
     .home-view { padding-bottom: 120px; }
     .input-wrap.docked,
     .sidebar.expanded ~ .main .input-wrap.docked {
-      left: 46px;
-      padding: 0 10px calc(10px + env(safe-area-inset-bottom));
-      background: linear-gradient(to top, var(--bg) 70%, transparent);
+      left: 52px;
+      padding: 0 10px calc(14px + env(safe-area-inset-bottom));
+      background: linear-gradient(to top, var(--bg) 65%, transparent);
     }
     .chat-view { padding-bottom: 126px; }
     .chat-header {
