@@ -1877,7 +1877,6 @@ function appendAIBubble(content, label, thinking, id) {
     <div class="msg-body">
       <div class="msg-meta">
         <span class="msg-name">Claude</span>
-        <span class="msg-model-tag">${esc(label)}</span>
       </div>
       <div class="msg-text" id="${cid}">
         ${thinking ? `<div class="thinking"><div class="dots"><span></span><span></span><span></span></div>Thinking…</div>` : renderMD(content || '')}
