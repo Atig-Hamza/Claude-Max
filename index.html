@@ -1053,9 +1053,9 @@
       </div>
       <div class="sidebar-divider"></div>
       <div class="sidebar-row">
-        <a href="/Claude-Max/" class="nav-btn active" title="New chat" onclick="newChat()">
+        <button class="nav-btn active" title="New chat" onclick="newChat()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-        </a>
+        </button>
         <span class="sidebar-label" onclick="newChat()" style="cursor:pointer">New chat</span>
       </div>
       <div class="sidebar-row">
@@ -1813,11 +1813,7 @@ function handleFile(e) {
 }
 
 function newChat() {
-  chatMode = false; messages = []; activeChatId = null;
-  chatInner.innerHTML = ''; chatView.classList.remove('visible'); chatHeader.classList.remove('visible');
-  homeView.style.display = ''; homeView.classList.remove('hiding');
-  if (inputWrap.classList.contains('docked')) { inputWrap.classList.remove('docked'); homeView.appendChild(inputWrap); }
-  msgInput.placeholder = 'Type / for skills, or just ask anything…'; msgInput.value = ''; onInput(msgInput);
+  window.location.reload();
 }
 
 // ══ INIT ══
